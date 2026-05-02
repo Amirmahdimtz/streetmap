@@ -1,0 +1,22 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Database
+app.db
+*.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
+# Alembic
+# معمولاً ورژن‌های لایه میگریشن را نگه می‌داریم، اما فایل‌های موقت را نه
