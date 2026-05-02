@@ -2,8 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from schemas.auth_schema import UserRegisterSchema, UserLoginSchema
 from services.auth_service import AuthService
 from dependencies.services import get_auth_service
-from core.security import create_jwt_token, pwd_context  # ✅ اصلاح
-from datetime import timedelta
+from core.security import pwd_context  # فقط برای verify استفاده می‌شود
 
 router = APIRouter()
 
@@ -32,11 +31,10 @@ def login(
         raise HTTPException(
             status_code=400, detail="username or password wrong")
 
-    # ساخت توکن واقعی
-    access_token = create_jwt_token(
-        data={"user_id": user.id},
-        expires_delta=timedelta(minutes=30),
-        token_type="access"
+    # ✅ استفاده از سرویس برای ساخت توکن
+    access_token = auth_service.create_access_token(
+        user_id=user.id,
+        expires_minutes=30
     )
 
     return {

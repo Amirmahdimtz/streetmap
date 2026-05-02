@@ -26,4 +26,4 @@ class AnswerService:
         )
 
     def get_user_answers(self, user_id: int):
-        return self.answer_repo.list_user_answers(user_id)
+        return self.answer_repo.list_user_answer(user_id)  # مفرد answer

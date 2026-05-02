@@ -14,17 +14,3 @@ class QuestionResponse(BaseModel):
             }
         }
     )
-
-
-class AnswerCreate(BaseModel):
-    question_id: int = Field(..., description="ID of the question")
-    value: str = Field(..., description="User answer")
-
-    model_config = ConfigDict(
-        json_schema_extra={
-            "example": {
-                "question_id": 1,
-                "value": "Blue"
-            }
-        }
-    )

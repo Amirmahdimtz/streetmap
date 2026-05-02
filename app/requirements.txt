@@ -53,3 +53,4 @@ urllib3==2.6.3
 uvicorn==0.41.0
 watchfiles==1.1.1
 websockets==16.0
+requests==2.31.0  # برای درخواست‌های HTTP به Nominatim

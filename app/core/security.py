@@ -7,8 +7,8 @@ import jwt
 from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from passlib.context import CryptContext
 from core.config import get_settings
-from db.database import get_db
 from db.models import UserTable
+from db.database import get_db
 
 settings = get_settings()
 

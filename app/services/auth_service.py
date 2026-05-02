@@ -2,12 +2,12 @@ from fastapi import HTTPException
 from passlib.context import CryptContext
 from repositories.user_repository import UserRepository
 from schemas.auth_schema import UserRegisterSchema
+from core.security import create_jwt_token, generate_access_token, generate_refresh_token
 import jwt
 from datetime import datetime, timedelta, timezone
 from core.config import get_settings
 
 settings = get_settings()
-
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -35,8 +35,26 @@ class AuthService:
             "username": new_user.username
         }
 
+    # ✅ اضافه شد: تولید توکن دسترسی
+    def create_access_token(self, user_id: int, expires_minutes: int = 30) -> str:
+        """تولید توکن دسترسی برای کاربر"""
+        return create_jwt_token(
+            data={"user_id": user_id},
+            expires_delta=timedelta(minutes=expires_minutes),
+            token_type="access"
+        )
+
+    # ✅ اضافه شد: تولید توکن رفرش (اختیاری)
+    def create_refresh_token(self, user_id: int, expires_days: int = 1) -> str:
+        """تولید توکن رفرش برای کاربر"""
+        return create_jwt_token(
+            data={"user_id": user_id},
+            expires_delta=timedelta(days=expires_days),
+            token_type="refresh"
+        )
+
     def decode_token(self, token: str):
-        """دیکد کردن توکن JWT - همیشه کار می‌کند"""
+        """دیکد کردن توکن JWT"""
         try:
             payload = jwt.decode(
                 token,
