@@ -1,0 +1,29 @@
+version: "3.8"
+
+networks:
+  streetmap-net:
+    driver: bridge
+
+services:
+  backend:
+    build: ./backend
+    container_name: streetmap-backend
+    ports:
+      - "8004:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./app.db
+      - JWT_SECRET_KEY=your-secret-key-change-this-in-production
+    networks:
+      - streetmap-net
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: streetmap-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - streetmap-net
+    restart: unless-stopped

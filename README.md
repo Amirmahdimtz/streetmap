@@ -13,3 +13,17 @@ UserRepository
 SQLAlchemy
    ↓
 Database
+
+
+
+
+
+
+
+
+
+
+
+
+venv\Scripts\activate
+
